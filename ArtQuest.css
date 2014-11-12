@@ -1,0 +1,12 @@
+.hint-marker
+{
+  /*margin-right: 30px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  width: 305px;
+  height: 305px;*/
+  border-radius: 4px;
+  border: 1px solid white;
+  background-color: rgba(0,0,0,.5);
+  float: left;
+}
