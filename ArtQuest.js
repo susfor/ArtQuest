@@ -4,6 +4,7 @@
 
 var currentAnswer;
 var showhint1=false; //hintbool variables track the state of showing or hiding hints false means its currently hidden
+var artList=[]; //holds all the Artworks in the game
 
 
 $(document).on('ready', MainMethod);
@@ -11,12 +12,17 @@ $(document).on('ready', MainMethod);
 
 function MainMethod()
 {
-  //create the artworks. Questions should come before artworks
+  //create all our assets. Questions should come before artworks
   var merodeQ1= new Question("What is this?","A dog","An altarpiece","Slutstation",2,"This fact is sooo fun!", "Actually, you're wrong!!!!");
-  var merode= new Artwork('ArtQuest_Images/Merode.jpg',"testhint",merodeQ1);
+  var buddhaQ1=new Question("Who is this?", "Buddha", "Moneppo", "Malala Yousafzai",1,"FUN FUN FUN FUN!","Err... no...");
+
+  artList[0]=new Artwork('ArtQuest_Images/Merode.jpg',"testhint",merodeQ1);
+  artList[1]=new Artwork('ArtQuest_Images/Buddha.jpg',"anothertesthint",buddhaQ1);
 
 //select an artwork to show
-var currentArtwork=merode;
+var testnum=Math.floor((Math.random() * 2));
+console.log(testnum);
+var currentArtwork=artList[testnum];
 
 //hide all the hin markers to start with
 $('.hint-marker').hide();
