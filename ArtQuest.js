@@ -1,28 +1,33 @@
 //hintmarker is the box itself
 //hint is the button with the hint text
 
-$(document).on('ready', MainMethod);
 
 var currentAnswer;
+var showhint1=false; //hintbool variables track the state of showing or hiding hints false means its currently hidden
+
+
+$(document).on('ready', MainMethod);
+
 
 function MainMethod()
 {
   //create the artworks. Questions should come before artworks
-  var merodeQ1= new Question("What is this?","A dog","An altarpiece","Slutstation",2);
+  var merodeQ1= new Question("What is this?","A dog","An altarpiece","Slutstation",2,"This fact is sooo fun!", "Actually, you're wrong!!!!");
   var merode= new Artwork('ArtQuest_Images/Merode.jpg',"testhint",merodeQ1);
 
 //select an artwork to show
 var currentArtwork=merode;
 
 //hide all the hin markers to start with
-$('.hintmarker').hide();
+$('.hint-marker').hide();
 
 //display the stuff
   currentArtwork.displayImage('#picture');
   currentArtwork.displayHint('#hint');
   currentArtwork.questionObject.displayQuestion('#question');
 
-//button functionality
+//button functionality for answers
+
   $('#answer1').click(function()
     {
       currentAnswer=1;
@@ -41,12 +46,35 @@ $('#answer2').click(function()
       currentArtwork.questionObject.checkAnswer();
     });
 
+    //once you clikc an answer, all other answers vanish
+    $('.answer').click(function()
+      {
+        $('.answer').remove();
+      });
+
+//button functionality for hints
 $('#hint1').click(function()
   {
-    $('#hintmarker1').show();
+    if(showhint1==false)
+      {
+        $('#hint-marker1').show();
+        showhint1=!showhint1;
+      }
+      else
+        {
+          $('#hint-marker1').hide();
+          showhint1=!showhint1;
+        }
+
   });
 
 }
+
+
+  //////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////
+
+
 
 // Arguments: image must be the name of the image, so a string, hint is String for now, questionobject is a Question object
 //later: hint becomes an array
@@ -58,14 +86,16 @@ function Artwork(image, hint, questionObject )
 
 }
 
-//the first f are Strings, correctAnswer is a number
-function Question(questiontext,answer1,answer2,answer3,correctAnswer)
+//the first f are Strings, correctAnswer is a number, funFact is a String
+function Question(questiontext,answer1,answer2,answer3,correctAnswer,funRightFact, funWrongFact)
 {
   this.questiontext=questiontext;
   this.answer1=answer1;
   this.answer2=answer2;
   this.answer3=answer3;
   this.correctAnswer=correctAnswer;
+  this.funRightFact=funRightFact;
+  this.funWrongFact=funWrongFact;
 }
 
 //Used to display the image of each Artwork
@@ -87,21 +117,35 @@ Artwork.prototype.displayHint=function(location)
 Question.prototype.displayQuestion=function(location)
 {
   $(location).append("<p>"+this.questiontext+"</p>");
-  $(location).append("<button id='answer1'>"+this.answer1+"</button>");
-  $(location).append("<button id='answer2'>"+this.answer2+"</button>");
-  $(location).append("<button id='answer3'>"+this.answer3+"</button>");
+  $(location).append("<button class='answer' id='answer1'>"+this.answer1+"</button>");
+  $(location).append("<button class='answer' id='answer2'>"+this.answer2+"</button>");
+  $(location).append("<button class='answer' id='answer3'>"+this.answer3+"</button>");
 
+}
+
+
+
+//used to display the funRightFact
+Question.prototype.displayFunRightFact=function()
+{
+  $('#fun-fact').append("<p>"+this.funRightFact+"</p>");
+}
+
+//used to display the funWrongFact
+Question.prototype.displayFunWrongFact=function()
+{
+  $('#fun-fact').append("<p>"+this.funWrongFact+"</p>");
 }
 
 Question.prototype.checkAnswer=function()
 {
   if(currentAnswer==this.correctAnswer)
     {
-      alert("You are correct");
+      this.displayFunRightFact();
     }
     else
       {
-        alert("You are wrong!");
+        this.displayFunWrongFact();
       }
 }
 
