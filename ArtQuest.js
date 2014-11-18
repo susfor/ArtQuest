@@ -1,9 +1,10 @@
 //hintmarker is the box itself
 //hint is the button with the hint text
-
+//
 
 var currentAnswer;
 var showhint1=false; //hintbool variables track the state of showing or hiding hints false means its currently hidden
+var artList=[]; //holds all the Artworks in the game
 
 
 $(document).on('ready', MainMethod);
@@ -11,12 +12,17 @@ $(document).on('ready', MainMethod);
 
 function MainMethod()
 {
-  //create the artworks. Questions should come before artworks
-  var merodeQ1= new Question("What is this?","A dog","An altarpiece","Slutstation",2,"This fact is sooo fun!", "Actually, you're wrong!!!!");
-  var merode= new Artwork('ArtQuest_Images/Merode.jpg',"testhint",merodeQ1);
+  //create all our assets. Questions should come before artworks
+  var merodeQ1= new Question("What is depicted here?","A religous scene","An abstract idea","A self-portrait",1,"You're right! In fact, this depictc the Annunciation!", "Probably not: the figure with wings is an angel, meaning this is likely a religous scene.");
+  var buddhaQ1=new Question("Who is depicted here?", "Jesus Christ", "Buddha", "King Gustav I",1,"You'right! This is a depciton of buddha offering protection. ","Probably not: the physique is too Asian-influenced to be a notable character in European history.");
+
+  artList[0]=new Artwork('ArtQuest_Images/Merode.jpg',"Look at the finger with wings. What sort of character does he remind you of?",merodeQ1);
+  artList[1]=new Artwork('ArtQuest_Images/Buddha.jpg',"Examine the hair and the body. Are they typical of Western art?",buddhaQ1);
 
 //select an artwork to show
-var currentArtwork=merode;
+var testnum=Math.floor((Math.random() * 2));
+console.log(testnum);
+var currentArtwork=artList[testnum];
 
 //hide all the hin markers to start with
 $('.hint-marker').hide();
@@ -98,11 +104,14 @@ function Question(questiontext,answer1,answer2,answer3,correctAnswer,funRightFac
   this.funWrongFact=funWrongFact;
 }
 
+
+
 //Used to display the image of each Artwork
 //location is the div where the image shows
 //should be of the form '#divename'
 Artwork.prototype.displayImage = function(location)
 {
+  //$(location).append("<img src='"+this.image+"' width='auto' height='300'> </img>");
   $(location).append("<img src='"+this.image+"'> </img>");
 }
 
