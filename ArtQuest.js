@@ -1,6 +1,6 @@
 //hintmarker is the box itself
 //hint is the button with the hint text
-
+//
 
 var currentAnswer;
 var showhint1=false; //hintbool variables track the state of showing or hiding hints false means its currently hidden
