@@ -1,4 +1,5 @@
 ArtQuest
-
-This is mine and Sharang's final project for Building for Learning 
 ========
+
+This is mine and Sharang's (Astrolingus) final project for our Building for Learning class
+
