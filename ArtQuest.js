@@ -62,24 +62,31 @@ $('#answer2').click(function()
 //button functionality for hints
 $('#hint1').click(function()
   {
+    /*
     if(showhint1==false)
       {
         $('#hint-marker1').show();
-        showhint1=!showhint1;
+      showhint1=!showhint1;
       }
       else
         {
           $('#hint-marker1').hide();
           showhint1=!showhint1;
         }
+        */
+
+        document.getElementById("angel-audio").play();
 
   });
 
   //button functionality for the next button
   $('#next-button').click(function()
     {
+//this is the dieal way, but something is breaking
+      //next();
 
-      next();
+      //hack way of getting a new question. Re-do in the future
+      location.reload();
 
     });
 
