@@ -6,7 +6,7 @@ text-align: center;
 #picture img /*this means all images under the picture id */
 {
   width: auto;
-  height: 500px;
+  height: 800px;
   align: center;
 
 }
