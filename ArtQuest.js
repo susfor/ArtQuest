@@ -8,6 +8,8 @@ var currentArtwork; //the artwork that is displayed
 var showhint1=false; //hintbool variables track the state of showing or hiding hints false means its currently hidden
 var artList=[]; //holds all the Artworks in the game
 
+var numCorrectAnswers;
+
 
 $(document).on('ready', MainMethod);
 
@@ -16,8 +18,8 @@ function MainMethod()
 {
   //create all our assets. Questions should come before artworks
 
-  artList[0]=new Artwork('ArtQuest_Images/Merode.jpg',"Look at the finger with wings. What sort of character does he remind you of?");
-  artList[1]=new Artwork('ArtQuest_Images/Buddha.jpg',"Examine the hair and the body. Are they typical of Western art?");
+  artList[0]=new Artwork('ArtQuest_Images/Merode.jpg',["angel-audio","tradesman-audio"]);
+  artList[1]=new Artwork('ArtQuest_Images/Buddha.jpg',["hair-audio","water-audio"]);
 
   //var merodeQ1= new Question("What is depicted here?","A religous scene","An abstract idea","A self-portrait",1,"You're right! In fact, this depictc the Annunciation!", "Probably not: the figure with wings is an angel, meaning this is likely a religous scene.");
   //var merodeQ2= new Question("Who might have commissioned this piece?", "The Church", "A King", "A tradesman",3,"Probably! It was probably a wealthy Belgian family that commissioned this piece", "Probably not: the addition of the tradesman in the left panel would not be favoured by the Church or a King.");
@@ -60,24 +62,20 @@ $('#answer2').click(function()
       });
 
 //button functionality for hints
-$('#hint1').click(function()
+$('#first-hint').click(function()
   {
-    /*
-    if(showhint1==false)
-      {
-        $('#hint-marker1').show();
-      showhint1=!showhint1;
-      }
-      else
-        {
-          $('#hint-marker1').hide();
-          showhint1=!showhint1;
-        }
-        */
 
-        document.getElementById("angel-audio").play();
+        document.getElementById(currentArtwork.hints[0]).play();
 
   });
+
+$('#second-hint').click(function()
+  {
+
+        document.getElementById(currentArtwork.hints[1]).play();
+
+  });
+
 
   //button functionality for the next button
   $('#next-button').click(function()
@@ -89,6 +87,26 @@ $('#hint1').click(function()
       location.reload();
 
     });
+
+    //Local storage stuff. Locally store the number of correct answers
+    //also deal with setting the correct answers message
+
+    numCorrectAnswers = localStorage.getItem("stored-num-correct");
+    //console.log(numCorrectAnswers);
+    if(numCorrectAnswers == null || isNaN(numCorrectAnswers))
+      {
+        numCorrectAnswers=0;
+        console.log("test");
+        localStorage.setItem("stored-num-correct", (numCorrectAnswers).toString(10))
+
+      }
+      else
+      {
+        numCorrectAnswers = parseInt(numCorrectAnswers, 10);
+      }
+
+      $('#correct-answers-message').replaceWith(numCorrectAnswers+" correct answers.")
+
 
 
 }
@@ -103,10 +121,10 @@ $('#hint1').click(function()
 
 // Arguments: image must be the name of the image, so a string, hint is String for now, questionList stores all the questions
 //later: hint becomes an array
-function Artwork(image, hint)
+function Artwork(image, hintArray)
 {
   this.image=image;
-  this.hint=hint;
+  this.hints=hintArray;
   this.questionList=[];
 
 }
@@ -129,12 +147,10 @@ var next=function()
 
   //clear out the previous image,question, hint etc.
   $('#question').empty();
-  $('#hint').empty();
   $('#picture').empty();
   $('#fun-fact').empty();
 
-//hide all the hint markers and next-button
-$('.hint-marker').hide();
+//hide the next-button
 $('#next-button').hide();
 
 //choose the artwork and question to show
@@ -144,7 +160,6 @@ selectArtwork();
 
 
   currentArtwork.displayImage('#picture');
-  currentArtwork.displayHint('#hint');
   currentQuestion.displayQuestion('#question');
 }
 
@@ -179,12 +194,6 @@ Artwork.prototype.displayImage = function(location)
 
 }
 
-//used to display a hint
-//location should be of the form '#divename'
-Artwork.prototype.displayHint=function(location)
-{
-  $(location).append("<p><button id='hint1'>"+this.hint+"</button></p>");
-}
 
 //used to display the question and its answers
 Question.prototype.displayQuestion=function(location)
@@ -214,6 +223,7 @@ Question.prototype.checkAnswer=function()
   if(currentAnswer==this.correctAnswer)
     {
       this.displayFunRightFact();
+      localStorage.setItem("stored-num-correct", (numCorrectAnswers+1).toString(10))
     }
     else
       {
