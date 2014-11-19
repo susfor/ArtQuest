@@ -27,22 +27,10 @@ artList[0].addQuestion(new Question("What is depicted here?","A religous scene",
 artList[0].addQuestion(new Question("Who might have commissioned this piece?", "The Church", "A King", "A tradesman",3,"Probably! It was probably a wealthy Belgian family that commissioned this piece", "Probably not: the addition of the tradesman in the left panel would not be favoured by the Church or a King."));
 artList[1].addQuestion(new Question("Who is depicted here?", "Jesus Christ", "Buddha", "King Gustav I",2,"You'right! This is a depciton of buddha offering protection. ","Probably not: the physique is too Asian-influenced to be a notable character in European history."));
 
-//select an artwork to show
 
+//show the first artwork and question
+next();
 
-//var testnum=Math.floor((Math.random() * 2));
-//var currentArtwork=artList[testnum];
-
-//hide all the hint markers to start with
-$('.hint-marker').hide();
-
-//choose the artwork and question to show
-selectArtwork();
-
-//display the stuff
-  currentArtwork.displayImage('#picture');
-  currentArtwork.displayHint('#hint');
-  currentQuestion.displayQuestion('#question');
 
 //button functionality for answers
 
@@ -64,10 +52,11 @@ $('#answer2').click(function()
       currentQuestion.checkAnswer();
     });
 
-    //once you clikc an answer, all other answers vanish
+    //once you clikc an answer, all other answers vanish and the next button apears
     $('.answer').click(function()
       {
         $('.answer').remove();
+        $('#next-button').show();
       });
 
 //button functionality for hints
@@ -86,7 +75,18 @@ $('#hint1').click(function()
 
   });
 
+  //button functionality for the next button
+  $('#next-button').click(function()
+    {
+
+      next();
+
+    });
+
+
 }
+
+
 
 
   //////////////////////////////////////////////////////////
@@ -116,6 +116,32 @@ function Question(questiontext,answer1,answer2,answer3,correctAnswer,funRightFac
   this.funWrongFact=funWrongFact;
 }
 
+//used to bring up a new question, image, hints etc.
+var next=function()
+{
+
+  //clear out the previous image,question, hint etc.
+  $('#question').empty();
+  $('#hint').empty();
+  $('#picture').empty();
+  $('#fun-fact').empty();
+
+//hide all the hint markers and next-button
+$('.hint-marker').hide();
+$('#next-button').hide();
+
+//choose the artwork and question to show
+selectArtwork();
+
+//display the stuff and hide the next button
+
+
+  currentArtwork.displayImage('#picture');
+  currentArtwork.displayHint('#hint');
+  currentQuestion.displayQuestion('#question');
+}
+
+
 //used to add questions to each artwork
 Artwork.prototype.addQuestion=function(tempquestion)
 {
@@ -142,6 +168,8 @@ Artwork.prototype.displayImage = function(location)
 {
   //$(location).append("<img src='"+this.image+"' width='auto' height='300'> </img>");
   $(location).append("<img src='"+this.image+"'> </img>");
+
+
 }
 
 //used to display a hint
