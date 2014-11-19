@@ -1,19 +1,26 @@
-.hint-marker
+#container
 {
-  /*margin-right: 30px;
-  margin-top: 30px;
-  margin-bottom: 50px;
-  width: 305px;
-  height: 305px;*/
-  border-radius: 4px;
-  border: 1px solid white;
-  background-color: rgba(0,0,0,.5);
-  float: left;
+text-align: center;
 }
-
 
 #picture img /*this means all images under the picture id */
 {
   width: auto;
-  height: 300px;
+  height: 500px;
+  align: center;
+
+}
+
+h1
+{
+font-family:"Garamond";
+font-style:"Bold";
+
+}
+
+h2
+{
+font-family:"Garamond";
+Font-style:"Normal";
+
 }
