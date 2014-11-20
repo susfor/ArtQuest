@@ -80,7 +80,8 @@ $('#second-hint').click(function()
   //button functionality for the next button
   $('#next-button').click(function()
     {
-//this is the dieal way, but something is breaking
+
+      //this is the dieal way, but something is breaking
       //next();
 
       //hack way of getting a new question. Re-do in the future
@@ -96,7 +97,6 @@ $('#second-hint').click(function()
     if(numCorrectAnswers == null || isNaN(numCorrectAnswers))
       {
         numCorrectAnswers=0;
-        console.log("test");
         localStorage.setItem("stored-num-correct", (numCorrectAnswers).toString(10))
 
       }
@@ -105,7 +105,7 @@ $('#second-hint').click(function()
         numCorrectAnswers = parseInt(numCorrectAnswers, 10);
       }
 
-      $('#correct-answers-message').replaceWith(numCorrectAnswers+" correct answers.")
+      $('#correct-answers-message').replaceWith(numCorrectAnswers+" correct answers.");
 
 
 
@@ -223,7 +223,19 @@ Question.prototype.checkAnswer=function()
   if(currentAnswer==this.correctAnswer)
     {
       this.displayFunRightFact();
-      localStorage.setItem("stored-num-correct", (numCorrectAnswers+1).toString(10))
+      numCorrectAnswers++;
+      $('#correct-answers-message').replaceWith(numCorrectAnswers+" correct answers.");
+      console.log("before local storage");
+      localStorage.setItem("stored-num-correct", (numCorrectAnswers).toString(10));
+
+      if(numCorrectAnswers>=5)
+        {
+          console.log("passed 5");
+          numCorrectAnswers=0;
+          localStorage.setItem("stored-num-correct", (numCorrectAnswers).toString(10));
+        }
+
+      //$('#correct-answers-message').replaceWith("hahaha");
     }
     else
       {
