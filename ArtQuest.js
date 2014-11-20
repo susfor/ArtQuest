@@ -228,12 +228,6 @@ Question.prototype.checkAnswer=function()
       console.log("before local storage");
       localStorage.setItem("stored-num-correct", (numCorrectAnswers).toString(10));
 
-      if(numCorrectAnswers>=5)
-        {
-          console.log("passed 5");
-          numCorrectAnswers=0;
-          localStorage.setItem("stored-num-correct", (numCorrectAnswers).toString(10));
-        }
 
       //$('#correct-answers-message').replaceWith("hahaha");
     }
