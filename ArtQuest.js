@@ -25,9 +25,9 @@ function MainMethod()
   //var merodeQ2= new Question("Who might have commissioned this piece?", "The Church", "A King", "A tradesman",3,"Probably! It was probably a wealthy Belgian family that commissioned this piece", "Probably not: the addition of the tradesman in the left panel would not be favoured by the Church or a King.");
   //var buddhaQ1=new Question("Who is depicted here?", "Jesus Christ", "Buddha", "King Gustav I",2,"You'right! This is a depciton of buddha offering protection. ","Probably not: the physique is too Asian-influenced to be a notable character in European history.");
 
-artList[0].addQuestion(new Question("What is depicted here?","A religous scene","An abstract idea","A self-portrait",1,"You're right! In fact, this depictc the Annunciation!", "Probably not: the figure with wings is an angel, meaning this is likely a religous scene."));
-artList[0].addQuestion(new Question("Who might have commissioned this piece?", "The Church", "A King", "A tradesman",3,"Probably! It was probably a wealthy Belgian family that commissioned this piece", "Probably not: the addition of the tradesman in the left panel would not be favoured by the Church or a King."));
-artList[1].addQuestion(new Question("Who is depicted here?", "Jesus Christ", "Buddha", "King Gustav I",2,"You'right! This is a depciton of buddha offering protection. ","Probably not: the physique is too Asian-influenced to be a notable character in European history."));
+artList[0].addQuestion(new Question("What is depicted here?","A religous scene","An abstract idea","A self-portrait",1,"You're right! In fact, this depicts the Annunciation, when the angel Gabriel informed Mary of her impending pregnancy.", "Probably not: the figure with wings is an angel, meaning this is likely a religous scene."));
+artList[0].addQuestion(new Question("Who might have commissioned this piece?", "The Church", "A King", "A tradesman",3,"Probably! It was likely a wealthy Belgian family that commissioned this piece, which is known as the Merode Altarpiece.", "Probably not: the addition of the tradesman in the left panel would not be favoured by the Church or a King."));
+artList[1].addQuestion(new Question("Who is depicted here?", "Jesus Christ", "Buddha", "King Gustav I",2,"You'right! This is a depciton of Buddha offering protection. ","Probably not: the physical features are too Asian-influenced to be a notable character in European history."));
 
 
 //show the first artwork and question
